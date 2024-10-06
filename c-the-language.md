@@ -243,3 +243,7 @@ notes:
 
 notes:
 На этом мы пока остановимся, в следующий раз мы будем работать с пользователем и решать, что делать, основываясь на введенных данных.
+
+Автор: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-10-05.
+
+Соавтор: [DeepL Translate](https://deepl.com).
