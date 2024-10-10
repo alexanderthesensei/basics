@@ -218,7 +218,7 @@ notes:
 
 void print_sum(int x, int y) {
   int sum = x + y;
-  printf("%d plus %d equals %d", x, y, sum);
+  printf("%i plus %i equals %i", x, y, sum);
 }
 
 int main() {
