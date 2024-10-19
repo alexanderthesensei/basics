@@ -1,9 +1,9 @@
 ## Linux
-- [знакомство](linux-basics.md)
+- [знакомство](sys/linux-basics.md)
 
 ## C
-- [знакомство](c-the-language.md)
-- [указатели и рекурсия](c-pointers-and-recursion.md)
+- [знакомство](clang/c-the-language.md)
+- [указатели и рекурсия](clang/c-pointers-and-recursion.md)
 
 ## C++
 TODO
