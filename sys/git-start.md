@@ -1,55 +1,82 @@
-## What is git and why do I need it?
+## Что такое git и зачем он нам нужен?
 
 ![git logo](https://upload.wikimedia.org/wikipedia/commons/2/2b/Git-logo-white.svg)
 
-Git is a distributed version control system designed to be fast and efficient. You can use it to version anything, from code to vector graphics to plain text.
+notes: Git - это распределенная система контроля версий, отличающаяся высокой скоростью и эффективностью. Ее можно использовать для работы с любым материалом, будь то код, векторная графика или обычный текст.
 
-## Why version control?
+---
+
+## Зачем нужен контроль версий?
 
 ![folder-versions](../Excalidraw/folder-versions.png)
 
-Imagine you're writing something, be it a program or something in a natural language, and half way through you get the urge to rewrite a piece of it. You delete the paragraph, rewrite it, then in a few days you realize that you like the original version better. Since then, you have closed your editor, so CTRL+Z is no longer an option. Fortunately, you've copied the file before making any changes. You copy it back, and make another copy to keep the second version. Now you have three files. Multiply that by a month of work and you'll get a tree that looks like this
+notes: Представьте, что вы пишете что-то, например программу или что-то на человеческом языке, и к вам приходит желание переписать часть текста. Вы удаляете абзац, переписываете его, и через несколько дней понимаете, что изначальная версия вам нравится больше. Однако вы уже давно закрыли редактор, так что CTRL+Z уже не поможет. К счастью, вы сделали копию файла перед тем, как вносить изменения. Вы копируете его обратно и делаете еще одну копию, чтобы сохранить вторую версию. Теперь у вас три файла. Растяните это на месяц работы и получите дерево, которое выглядит примерно так
+
+---
 
 ![folder-versions-with-git](../Excalidraw/folder-versions-with-git.png)
 
-Git turns this mess into a single, neat folder with the entire history of changes, each one with a comment, a date, and an author.
+notes: Git превращает этот беспорядок в одну компактную папку со всей историей ее изменений, к каждому из которых прикреплены комментарий, дата и его автор.
 
-## Using git
+---
+
+## Использование git
 
 ![a-directory](../Excalidraw/git-showcase/a-directory.png)
 
-Such a git-controlled directory is called a *repository.*
+notes: Такие директории, которые находятся под управлением git, называются *репозиториями.*
+
+---
 
 ![init](../Excalidraw/git-showcase/init.png)
 
-Let's make one. Git has a command line interface, I'll have the visual representation on the left and a terminal on the right. The command to create a repository is `init`.
+notes: Создадим такую директорию. Git использует интерфейс командной строки, я буду располагать визуальное представление с левой стороны, а терминал - с правой. Команда для создания репозитория называется `init`.
+
+---
 
 ![first-status](../Excalidraw/git-showcase/first-status.png)
 
-We can always ask git what state the repository is in using the `status` command. Right now it tells us that there are no saved versions yet and that there is a file that it isn't tracking the changes in. That means that if we say, delete or change the file right now, git will not be able to do anything about it.
+notes: Мы всегда можем узнать в каком состоянии находится репозиторий с помощью команды `status`. Сейчас он пишет нам, что у него пока нет сохраненных версий и что существует один файл, изменения в котором он не отслеживает. Это значит, что если мы допустим, удалим или изменим файл, git не сможет ничего с этим сделать.
+
+---
 
 ![git-add](../Excalidraw/git-showcase/git-add.png)
 
-We can add the file to version control, telling git to track its state. Now it reports that this will be added to a commit. A commit is a snapshot of the repository with the metadata that I talked about earlier.
+notes: Добавим файл в управление версиями, попросив git отслеживать его состояние. Теперь он сообщает, что этот файл будет добавлен в коммит.  Коммит - это снимок состояния содержимого репозитория плюс метаданные, о которых я говорил ранее.
+
+---
 
 ![git-commit](../Excalidraw/git-showcase/git-commit.png)
 
-If we create that commit, the status goes to "work tree clean", meaning that everything is under control and you won't loose any changes. For example,
+notes: Если мы создадим коммит, статус изменится на " рабочее дерево чистое", что означает, что всё находится под контролем и вы не потеряете данные. Например,
+
+---
 
 ![rm-description](../Excalidraw/git-showcase/rm-description.png)
 
-Let's say we accidentally deleted the file. Status shows this now:
+notes: Представим, что мы случайно удалили файл. Статус теперь показывает следующее:
+
+---
 
 ![git-restore](../Excalidraw/git-showcase/git-restore.png)
 
-We can ask git to restore the file, which it will do.
+notes: Мы можем попросить git восстановить файл, и он это сделает.
+
+---
 
 ![git-log](../Excalidraw/git-showcase/git-log.png)
-This is basically 80% of what you do, add, commit, and restore. Imagine we've been working with this project for a bit now and we have multiple files and multiple commits. We can view the list of them using the log command,
+
+notes: По сути, это 80% того, что вы будете с ним делать: добавлять, коммитить и восстанавливать файлы. Теперь представьте, что мы работаем с этим проектом довольно долго, и у нас есть несколько файлов и несколько коммитов. Мы можем просмотреть их список с помощью команды log,
+
+---
 
 ![git-checkout](../Excalidraw/git-showcase/git-checkout.png)
 
-Or travel back in time to any of them. This doesn't delete anything, you can always go to the last state, assuming it was committed.
+notes: или вернуться к любому из них. При этом ничего не удаляется, вы всегда можете вернуться к последнему состоянию, при условии, что оно было закоммичено.
 
-## Conclusion
-We'll cover branches next time, I won't go into them now.
+## Заключение
+notes: О ветках мы поговорим в следующий раз, а не буду углубляться в эту тему здесь.
+
+Автор: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-09-30.
+
+Соавтор: [DeepL Translate](https://deepl.com).
