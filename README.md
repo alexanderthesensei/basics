@@ -3,7 +3,7 @@
 
 ## C
 - [знакомство](clang/c-the-language.md)
-- [указатели и рекурсия](clang/c-pointers-and-recursion.md)
+- [control flow](clang/c-control-flow.md)
 
 ## C++
 TODO

@@ -1,16 +1,16 @@
-Programs nearly never work linearly - they have to decide what to do depending on the inputs. To do that, C has 4 main statements ~~and gotos which you should not know about~~.
+Программы почти никогда не работают линейно - в зависимости от входных данных им приходится на ходу менять свое поведение. Для этого в языке Си есть 3 основных оператора ~~а также `do while` и `goto`, про которые лучше не знать~~.
 
-## The `if` statement
+## Оператор `if`
 ```c
 if (...) {
 	...
 }
 ```
-The if statement executs its body only if the experssion given to it is not zero.
+Тело оператора if выполняется только в том случае, если выражение, переданное ifу, не равно нулю.
 
 ```c
 if (1) {
-	printf("This always runs\n");
+	printf("Это запускается всегда\n");
 }
 ```
 ```bash
@@ -19,11 +19,11 @@ user@machine:~/flow$ ./a.out
 This always runs
 user@machine:~/flow$
 ```
-A number is an expression
+Число - это выражение
 
 ```c
 if (2 > 3) {
-	printf("This never runs\n");
+	printf("Это не запускается никогда\n");
 }
 ```
 ```bash
@@ -31,7 +31,7 @@ user@machine:~/flow$ gcc control_flow.c
 user@machine:~/flow$ ./a.out
 user@machine:~/flow$
 ```
-A comparison is an expression
+Сравнение - это выражение
 
 ```c
 int yes() {
@@ -39,7 +39,7 @@ int yes() {
 }
 
 if (yes()) {
-	printf("This always runs\n");
+	printf("Это запускается всегда\n");
 }
 ```
 ```bash
@@ -49,17 +49,17 @@ This always runs
 user@machine:~/flow$ # I will show output at the bottom of the screen
 user@machine:~/flow$ # without the build command going forward
 ```
-And a variable or a function's return value is an expression, too.
+И переменная или возвращаемое значение функции - это тоже выражение.
 
-## Operators
+## Сравнительные и логические операторы
 - `>`
 - `<`
 - `<=`
 - `>=`
 - `==`
-- `!=` (not equal)
+- `!=` (не равно)
 
-Let's go over some common ways to manipulate expressions. These are the comparison operators. They take 2 expressions and return the integer 1 or 0 (for true or false respectively).
+Давайте рассмотрим несколько распространенных способов работы с выражениями. Вот операторы сравнения. Они берут два выражения и возвращают 1 или 0 (что означает истина или ложь соответственно).
 
 ```c
 int x = 0;
@@ -74,7 +74,7 @@ printf("Issue 2. Now x = %d.\n", x);
 Issue 1. This runs.
 Issue 2. Now x = 2.
 ```
-Note that the equality check is 2 equal signs and not one. This is because a single equal sign is the assignment operator, we used it earlier to give variables their values. The compiler *will not warn you* if you use the wrong one.
+Обратите внимание, что при проверке равенства используются 2 знака равно, а не один. Это объясняется тем, что один знак равно - это оператор присваивания, который мы использовали ранее для задания переменным их значений. *Компилятор не станет вас предупреждать*, если вы используете неправильный оператор.
 
 ```c
 int x = 0;
@@ -91,7 +91,7 @@ flow.c:6:9: error: lvalue required as left operand of assignment
     6 |   if (2 = x) {
       |         ^
 ```
-If you want it to, you can use the yoda notation.
+Если вы хотите, чтобы он это делал, вы можете использовать нотацию Йоды.
 
 ```c
 int x = 0;
@@ -105,13 +105,13 @@ printf("And x is still %d!\n", x);
 ```text
 And x is still 0!
 ```
-Here's the corrected code.
+Вот исправленный вариант.
 
-- `&&` and
-- `||` or
-- `!` not
+- `&&` и
+- `||` или
+- `!` не
 
-There are also the logical operators. `And` takes 2 integers and returns 1 if both of them are 1. `Or` takes 2 integers and returns 0 if both of them are 0. `Not` takes one expression and returns a zero if it's non-zero and a one if it's zero.
+Существуют также логические операторы. Оператор и берет два целых числа и возвращает единицу, если они оба равны единице. Или принимает два целых числа и возвращает ноль, если они оба равны нулю. Не берет выражение и инвертирует его.
 
 ```c
 int x = 32;
@@ -123,7 +123,7 @@ if (16 < x && x < 64) {
 ```text
 X ∈ (16; 64)
 ```
-Here's an example using a combination of the above.
+Вот пример, использующий сочетание вышеперечисленных операторов.
 
 ## `else`
 ```c
@@ -138,7 +138,7 @@ if (16 < x && x < 64) {
 ```text
 X ∉ (16; 64)
 ```
-Any if statement can have an `else` block that will execute if the expression is zero.
+Любой if может иметь блок `else`, который будет выполняться, если выражение равно нулю.
 
 ```c
 void check_range(int x) {
@@ -165,7 +165,7 @@ X ∈ (-∞; 16]
 X ∈ (16; 64)
 X ∈ [64; +∞)
 ```
-You can put an if block inside of another if block, but that adds a lot of code and harms readability.
+Вы можете поместить блок if внутри другого блока if, но это добавит много лишних букв и ухудшит читаемость.
 
 ```c
 void check_range(int x) {
@@ -190,9 +190,9 @@ X ∈ (-∞; 16]
 X ∈ (16; 64)
 X ∈ [64; +∞)
 ```
-You can use the `else if` blocks to flatten the same thing.
+Вы можете использовать блоки `else if`, чтобы сжимать выражения, подобные последнему.
 
-## Recursion
+## Рекурсия
 ```c
 void sequence(int min, int max) {
     if (0 == min) {
@@ -218,9 +218,9 @@ int main() {
 {0, 1, 2, 3, 4, 5, 6, 7, 8}
 ```
 
-With just ifs and functions, you can make loops. This is done by making a function call itself based on some condition. The pattern is called recursion.
+Используя только if и функции, вы можете создавать циклы. Для этого нужно заставить функцию вызывать саму себя по какому-то условию. Такая конструкция называется рекурсией.
 
-## `while`-loops
+## Циклы `while`
 ```c
 int index = 0;
 int max = 8;
@@ -236,9 +236,9 @@ printf("%d}\n", max);
 ```text
 {0, 1, 2, 3, 4, 5, 6, 7, 8}
 ```
-C has a syntax for loops, so you don't need to make a function every time you want to repeat something. A `while` loop is like an if statement, except the body executes continuously while the condition is not zero, and not just once. This approach is often simpler.
+В Си есть специальный синтаксис для циклов, чтобы не создавать функцию каждый раз, когда вы хотите что-то повторить. Цикл `while` похож на оператор if, за исключением того, что его тело выполняется постоянно, пока условие не равно нулю, а не только один раз. Такой подход зачастую проще.
 
-## `for`-loops
+## Циклы `for`
 ```c
 int max = 8;
 printf("{");
@@ -252,7 +252,7 @@ printf("%d}\n", max);
 ```text
 {0, 1, 2, 3, 4, 5, 6, 7, 8}
 ```
-A for loop is just a shorthand for a while loop with a counter written into it. It has 3 arguments - the coutner variable, the run condition, and what to do after every iteration. The counter variable is often declared in-place and called i (short for index).
+Цикл for - это просто сокращение цикла while с вписанным в него счетчиком. У него есть 3 аргумента - переменная-счетчик, условие выполнения и действие, выполняемое после каждой итерации. Переменная счетчика часто объявляется на месте и называется i (сокращение от index).
 
 ```c
 for (int i = 0; i < 3; i++) {
@@ -267,11 +267,13 @@ for (int i = 0; i < 3; i++) {
 0 1 2 3
 0 2 4 6
 ```
-Loops can be nested. Here's a multiplication table, for example.
+Циклы могут быть вложенными. Вот, например, таблица умножения.
 
-## Homework
-- [fizzbuzz](https://en.wikipedia.org/wiki/Fizz_buzz)
-- print the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence)
-- make a 10x10 multiplication table
+## Домашка
+- [fizzbuzz](https://ru.wikipedia.org/wiki/Fizz_buzz)
+- вывести [последовательность Фибоначчи](https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D0%BB%D0%B0_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8)
+- построить таблицу умножения 10х10
 
-Writer: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-11-02.
+Автор: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-11-02.
+
+Соавтор: [DeepL Translate](https://deepl.com).
