@@ -16,7 +16,7 @@ if (1) {
 ```bash
 user@machine:~/flow$ gcc control_flow.c
 user@machine:~/flow$ ./a.out
-This always runs
+Это запускается всегда
 user@machine:~/flow$
 ```
 Число - это выражение
@@ -46,8 +46,10 @@ if (yes()) {
 user@machine:~/flow$ gcc control_flow.c
 user@machine:~/flow$ ./a.out
 This always runs
-user@machine:~/flow$ # I will show output at the bottom of the screen
-user@machine:~/flow$ # without the build command going forward
+user@machine:~/flow$ # В следующих примерах
+user@machine:~/flow$ # я буду показывать результат выполнения
+user@machine:~/flow$ # программы в нижней части экрана
+user@machine:~/flow$ # без команды сборки
 ```
 И переменная или возвращаемое значение функции - это тоже выражение.
 
@@ -65,14 +67,14 @@ user@machine:~/flow$ # without the build command going forward
 int x = 0;
 
 if (x = 2) {
-	printf("Issue 1. This runs.\n");
+	printf("Проблема 1. Этот код запускается.\n");
 }
 
-printf("Issue 2. Now x = %d.\n", x);
+printf("Проблема 2. Теперь x = %d.\n", x);
 ```
 ```text
-Issue 1. This runs.
-Issue 2. Now x = 2.
+Проблема 1. Этот код запускается.
+Проблема 2. Теперь x = 2.
 ```
 Обратите внимание, что при проверке равенства используются 2 знака равно, а не один. Это объясняется тем, что один знак равно - это оператор присваивания, который мы использовали ранее для задания переменным их значений. *Компилятор не станет вас предупреждать*, если вы используете неправильный оператор.
 
@@ -80,10 +82,10 @@ Issue 2. Now x = 2.
 int x = 0;
 
 if (2 = x) {
-	printf("Issue 1. This runs.\n");
+	printf("Проблема 1. Этот код запускается.\n");
 }
 
-printf("Issue 2. Now x = %d.\n", x);
+printf("Проблема 2. Теперь x = %d.\n", x);
 ```
 ```text
 flow.c: In function ‘main’:
@@ -97,13 +99,13 @@ flow.c:6:9: error: lvalue required as left operand of assignment
 int x = 0;
 
 if (2 == x) {
-	printf("Thi doesn't get printed anymore\n");
+	printf("Это больше не печатается.\n");
 }
 
-printf("And x is still %d!\n", x);
+printf("И x по-прежнему равен %d!\n", x);
 ```
 ```text
-And x is still 0!
+И x по-прежнему равен 0!
 ```
 Вот исправленный вариант.
 
@@ -196,16 +198,16 @@ X ∈ [64; +∞)
 ```c
 void sequence(int min, int max) {
     if (0 == min) {
-        printf("{"); // first element
+        printf("{"); // первый элемент
     }
     
     printf("%d", min);
     if (max == min) {
-        printf("}\n"); // last element
+        printf("}\n"); // последний элемент
         return;
     } else {
-        printf(", "); // continuing
-        sequence(min + 1, max); // recursing
+        printf(", "); // продолжаем последовательность
+        sequence(min + 1, max); // рекурсия
     }
 }
 ```
@@ -228,7 +230,7 @@ printf("{");
 
 while (index < max) {
 	printf("%d, ", index);
-	index++; // same as `index = index + 1;`
+	index++; // то же, что `index = index + 1;`
 }
 
 printf("%d}\n", max);
