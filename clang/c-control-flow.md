@@ -274,4 +274,4 @@ Loops can be nested. Here's a multiplication table, for example.
 - print the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence)
 - make a 10x10 multiplication table
 
-Writer: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-10-05.
+Writer: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-11-02.
