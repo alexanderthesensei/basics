@@ -56,7 +56,7 @@ if (yes()) {
 ```bash
 user@machine:~/flow$ gcc control_flow.c
 user@machine:~/flow$ ./a.out
-This always runs
+Это запускается всегда
 ```
 (В следующих примерах я буду показывать результат выполнения программы без команды сборки)
 
