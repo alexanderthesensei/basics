@@ -1,5 +1,5 @@
-# Pointers
-A variable is a named location in the memory. Aside from named locations, you can have unnamed locations, or the literal addresses. If you have an operating system, that location is created by it and is a virtual address. If you're operating on bare metal, that's the index of a capacitor group in the actual memory chip.
+# Указатели
+Переменная - это именованный участок памяти. Кроме именованных участков, вы можете иметь неименованные участки, то есть буквальные адреса. Если вы работаете над операционной системой, этот адрес создается ей и является виртуальным . Если вы работаете напрямую с железом, то это порядковый номер группы конденсаторов в самом чипе памяти.
 
 ```c
 int main() {
@@ -24,7 +24,7 @@ user@machine:~$ ./a.out
 0x7ffff066a1f4 = 32
 ```
 
-You can get the address of an existing variable using the `&` operator. Each time you run the code that address will be different, so you can't use them instead of names.
+Вы можете получить адрес существующей переменной с помощью оператора `&`. При каждом запуске кода он будет новым, поэтому нельзя использовать адреса вместо имен.
 
 ```c
 int main() {
@@ -39,9 +39,9 @@ int main() {
 0x7ffcaa33bc44 = 32
 ```
 
-C has a special class of types to address this problem (huh) called pointers. They are variables that store memory addresses instead of values. It's still useful to know what data lives under those addresses, so they inherit its type. The type is followed with an asterisk.
+Для решения этой проблемы в языке C существует специальный класс типов, называемый указателями. Это переменные, которые хранят не значения, а адреса памяти. При этом полезно знать, какие данные хранятся по этим адресам, поэтому они наследуют тип. За типом следует звездочка.
 
-To get a value from an address, you pass an asterisk followed by that address.
+Чтобы получить значение из адреса, вы пишете звездочку, а затем этот адрес.
 
 ```c
 int main() {
@@ -56,14 +56,14 @@ int main() {
 0x7ffccfc4afc0 -> 0x7ffccfc4afbc -> 32
 ```
 
-## The stack
-All the variables you define go on the stack. The stack is a virtual block of memory allocated by the shell before your app is launched. It is very small, 8KiB on my machine:
+## Стек
+Все переменные, которые прописаны вами, помещаются на стек. Стек - это виртуальный блок памяти, выделяемый оболочкой перед запуском вашей программы. Он очень маленький, всего 8 KiB на моей машине:
 ```bash
 user@machine:~$ ulimit -s
 8192
 ```
 
-Let's take a closer look at how it works:
+Давайте рассмотрим подробнее, как он работает:
 ```c
 #include <stdio.h>
 
@@ -83,9 +83,9 @@ int main() {
 1st: 0x7ffe7c77e7e4
 2nd: 0x7ffe7c77e7c4
 ```
-We define a variable in a main function, a second function, and a variable inside of it. Then we call the second function and print the addresses of both variables. They differ by 32 bytes. That's the function definition and function call.
+Мы определяем переменную в главной функции, а также вторую функцию и переменную внутри нее. Затем вызываем вторую функцию и выводим адреса обеих переменных. Они отличаются на 32 байта. Это определение функции и ее вызов.
 
-If we call the second function twice from main, the variable will have the same address because after the first call completed all the variables inside the function got deleted:
+Если мы дважды вызовем вторую функцию из main, у переменной будет один и тот же адрес, потому что после завершения первого вызова все переменные внутри функции были удалены:
 ```c
 #include <stdio.h>
 
@@ -108,7 +108,7 @@ int main() {
 2nd: 0x7ffe288a0c14
 ```
 
-Note that, while the variables were deleted, the values stayed. If you return the address of a local variable and try to read it, the value will still be there:
+Обратите внимание, что, хотя переменные и были удалены, их значения остались. Если вы вернете адрес локальной переменной и попытаетесь ее прочитать, значение все еще будет там:
 ```c
 #include <stdio.h>
 
@@ -138,7 +138,7 @@ user@machine:~$ ./a.out
 the pointer is 0x7ffdf46d59bc and the value stored there is 64
 ```
 
-So if you run another function that will just happen to have a variable at the same address, you will get the old value:
+Таким образом, если вы запустите другую функцию, которая по случайности будет иметь переменную с таким же адресом, вы получите старое значение:
 ```c
 #include <stdio.h>
 
@@ -166,14 +166,14 @@ int main() {
 still 2nd: 64
 ```
 
-However, this is not a defined behavior, and the compiler or the operating system may actually clean that memory, here's what happens when I re-enable optimization by removing the `-O0` flag from earlier:
+Однако это не является определенным поведением, и компилятор или операционная система могут на самом деле очистить эту память. Вот что происходит, когда я снова включаю оптимизацию, убрав флаг `-O0` из предыдущей версии:
 ```text
 1st: 0x7ffebad4e284
 2nd: 64
 still 2nd: 0
 ```
 
-If you try to read a memory location outside of the function you're currently in, the operating system may kill the program. It does that to prevent you from reading or altering memory that belongs to other apps.
+Если вы попытаетесь прочитать участок памяти, не относящийся к функции, в которой вы сейчас находитесь, операционная система может убить вашу программу. Она делает это, чтобы предотвратить чтение или изменение памяти, принадлежащей другим программам.
 ```c
 #include <stdio.h>
 
@@ -187,7 +187,7 @@ int main() {
 Segmentation fault (core dumped)
 ```
 
-Because pointers are just addresses and addresses are just big numbers, you can add a number to a pointer. Doing that will give you the next memory cell.
+Поскольку указатели - это просто адреса, а адреса - это большие числа, вы можете добавить число к указателю. В результате вы получите следующую ячейку памяти.
 ```c
 #include <stdio.h>
 
@@ -209,8 +209,8 @@ x = 32;
 y = 64;
 ```
 
-## The heap
-Since the stack is only 8KiB or so, it's not enogh for many tasks. If you, for example, have to process a big spreadsheet, the data will simply not fit. If you do that, your program will segfault.
+## Куча
+Поскольку стек составляет всего 8 килобайт или что-то около того, для многих задач его недостаточно. Если, например, вам нужно обработать большую электронную таблицу, то данные просто не поместятся. В этом случае ваша программа за'segfault'ится.
 ```c
 int main() {
     int x = 65535;
@@ -221,7 +221,7 @@ int main() {
 Segmentation fault (core dumped)
 ```
 
-If you need to hold more data in the RAM, you can ask the OS for another continuous chunk by running the `malloc` function, which stands for `memory allocation`. It returns the first byte. Say I need a another 8KiB:
+Если вам нужно хранить в памяти больше данных, вы можете попросить операционную систему выделить еще один непрерывный блок, запустив функцию `malloc`, которая расшифровывается как `memory allocation`. Она возвращает первый байт. Предположим, мне нужно еще 8 килобайт:
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -237,7 +237,7 @@ int main() {
 1
 ```
 
-C doesn't have an array type. Making an array in C is just allocating memory, and reading an element of that array is summing the first address with the index of that element.
+В Си нет типа массива. Создание массива в C - это просто выделение памяти, а чтение элемента этого массива - сложение первого адреса с индексом этого элемента.
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -257,9 +257,9 @@ int main() {
 ```text
 1, 2, 3
 ```
-Here, we're allocating enough memory for 3 integers. An integer is 4 bytes, but we use a built-in function to not have to remember that.
+Здесь мы выделяем достаточно памяти для 3 целых чисел. Целое число - это 4 байта, но чтобы не думать об этом, мы используем встроенную функцию.
 
-The stack is allocated by the shell in the same manner, and cleaned by the shell after your main function exits. If you allocate memory, you must clean it up:
+Стек выделяется оболочкой таким же образом и очищается ей же после выхода из функции main. Если вы выделяете память сами, очищать ее придется вам:
 ```c
 int main() {
 	int* array = malloc(sizeof(int) * 3);
@@ -267,10 +267,10 @@ int main() {
 	free(array);
 }
 ```
-If you forget to do that, the program will eat up all of your computer's ram and the latter will freeze.
+Если вы забудете это сделать, программа съест всю оперативную память вашего компьютера, и он зависнет.
 
-## Matricies
-No matrix type, just a pointer to a pointer.
+## Матрицы
+Типа матрицы не существует, есть только указатель на указатель.
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -300,13 +300,13 @@ int main() {
 }
 ```
 
-C offers additonal syntax to make this a bit easier to read:
+Си предлагает дополнительный синтаксис, чтобы сделать это немного проще:
 ```c
 *(pointer + index)
 pointer[index]
 ```
 
-That turns the last example into this:
+Таким образом, последний пример можно переписать так:
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -335,7 +335,7 @@ int main() {
 }
 ```
 
-Then we can simplify it further:
+Затем мы можем упростить его еще больше:
 ```c
 #include <stdlib.h>
 #include <stdio.h>
@@ -366,8 +366,8 @@ int main() {
 2 4 6
 ```
 
-## Strings
-There is no string type in c, just a pointer to some chars.
+## Строки
+В c нет строкового типа, только указатели на несколько символов.
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -392,9 +392,9 @@ int main() {
 ```text
 Hello!
 ```
-To know where the string ends without having to keep its character count around in a separate variable, they always end in `\0`.
+Чтобы знать, где заканчивается строка, и не хранить количество символов в отдельной переменной, их всегда заканчивают на `\0`.
 
-Like with arrays, there is additional syntax to keep your code concise:
+Как и в случае с массивами, существует дополнительный синтаксис, позволяющий сделать ваш код более лаконичным:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -414,7 +414,7 @@ int main() {
 Hello!
 ```
 
-And the helper function we just wrote is built into printf:
+А еще вспомогательная функция, которую мы только что написали, встроена в printf:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -430,7 +430,7 @@ int main() {
 Hello!
 ```
 
-## Reading CLI arguments
+## Чтение аргументов интерфейса командной строки
 ```c
 #include <stdio.h>
 
@@ -461,11 +461,13 @@ user@machine:~$ ./cli these are space-separated strings
 - space-separated
 - strings
 ```
-The main function can take either no arguments or two arguments. These two arguments are the integer argument count (usually called `argc`) and the argument values (usually `argv`), which is just an array of strings.
+Функция main может принимать либо 0 аргументов, либо 2 аргумента. Эти два аргумента - целочисленный счетчик аргументов (обычно называется `argc`) и значения аргументов (обычно `argv`), представляющие собой массив строк.
 
-## Homework
-- find the detirminant of the matrix `[[1, 2, 1], [2, 3, -2], [3, 0, 4]]`
-- write a program that takes a `--name [string]` argument and greets the user
-- make a `--help` flag for that program
+## Домашка
+- найдите определитель матрицы `[[1, 2, 1], [2, 3, -2], [3, 0, 4]]`.
+- напишите программу, которая принимает аргумент `--name [string]` и приветствует пользователя
+- добавьте флаг `--help` в эту программу
 
-Written by [alexanderthestudent](https://github.com/alexanderthesensei) on 2024-11-06
+Автор: [alexanderthestudent](https://github.com/alexanderthesensei), 2024-11-06.
+
+Соавтор: [DeepL Translate](https://deepl.com).
